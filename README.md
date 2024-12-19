@@ -8,14 +8,12 @@
 
 <br />
 <div align="center">
-  <a href="https://github.com/othneildrew/Best-README-Template">
     <img src="https://github.com/user-attachments/assets/adc00612-f22f-4558-b633-886637cb90a8" alt="Logo" width="80" height="80">
-  </a>
 
   <h3 align="center">To-Do App</h3>
 </div>
 
-<details>
+<details> 
   <summary>Table of Contents</summary>
   <ol>
     <li>
