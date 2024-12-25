@@ -5,11 +5,10 @@ import androidx.lifecycle.viewModelScope
 import com.example.noteapp.feature_note.domain.model.Note
 import com.example.noteapp.feature_note.domain.use_case.NoteUseCases
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.asStateFlow
-import kotlinx.coroutines.flow.collect
-import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.flow.SharingStarted
+import kotlinx.coroutines.flow.onStart
+import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -20,12 +19,13 @@ class MainVM @Inject constructor(
 ) : ViewModel() {
 
     private val _notes = MutableStateFlow<List<Note>>(emptyList())
-    val notes = _notes.asStateFlow()
-
-
-    init {
-        getNotes()
-    }
+    val notes = _notes
+        .onStart { getNotes() }
+        .stateIn(
+            scope = viewModelScope,
+            started = SharingStarted.WhileSubscribed(5000),
+            initialValue = emptyList()
+        )
 
     private fun getNotes() {
         viewModelScope.launch {

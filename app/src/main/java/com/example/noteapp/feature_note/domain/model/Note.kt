@@ -1,11 +1,14 @@
 package com.example.noteapp.feature_note.domain.model
 
+import androidx.compose.runtime.Stable
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 import java.text.SimpleDateFormat
 import java.util.Date
+import java.util.Locale
 
+@Stable
 @Entity("notes")
 data class Note(
     @PrimaryKey(autoGenerate = true)
@@ -18,4 +21,4 @@ data class Note(
     val added: Long = System.currentTimeMillis()
 )
 
-val Note.addDate: String get() = SimpleDateFormat("yyyy/MM/dd hh:mm").format(Date(added))
+val Note.addDate: String get() = SimpleDateFormat("yyyy/MM/dd hh:mm", Locale.US).format(Date(added))
