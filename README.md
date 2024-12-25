@@ -27,9 +27,6 @@
       <ul>
         <li><a href="#demo-video">Demo Video</a></li>
       </ul>
-      <ul>
-        <li><a href="#images">Images</a></li>
-      </ul>
     </li>
   </ol>
 </details>
@@ -56,14 +53,10 @@ This section highlights the key libraries and technologies used to build the app
 
 ## App Content
 
-Below, you can find a demo video and screenshots showcasing the app's smooth animations, intuitive interface, and user-friendly design.
+Below, you can find a demo video showcasing the app's smooth animations, intuitive interface, and user-friendly design.
 
-## Demo Video
+### Demo Video
 
-https://github.com/lomidzegaga/Todo-App/assets/98084620/bf868810-1951-47b4-9401-21cf4e949315
-
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
-
-## Images
+https://github.com/user-attachments/assets/b0db0494-34e1-4374-a1e7-224b7745fbde
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
