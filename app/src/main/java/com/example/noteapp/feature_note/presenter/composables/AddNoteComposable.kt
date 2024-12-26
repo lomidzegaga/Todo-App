@@ -13,8 +13,10 @@ import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.OutlinedTextFieldDefaults
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -30,12 +32,15 @@ fun AddNoteDialog(
     onDismissRequest: () -> Unit,
     addNoteClick: (String, String) -> Unit
 ) {
-    val (title, setTitle) = remember {
-        mutableStateOf("")
-    }
-    val (note, setNote) = remember {
-        mutableStateOf("")
-    }
+    var noteTitle by remember { mutableStateOf("") }
+    val onNoteTitleChange = remember { { newTitle: String -> noteTitle = newTitle } }
+
+    var noteDesc by remember { mutableStateOf("") }
+    val onNoteDescChange = remember { { newDesc: String -> noteDesc = newDesc } }
+
+    val onButtonClick = remember { {
+        if (noteTitle.isNotEmpty() && noteDesc.isNotEmpty()) { addNoteClick.invoke(noteTitle, noteDesc) }
+    } }
 
     Dialog(
         onDismissRequest = onDismissRequest
@@ -58,8 +63,8 @@ fun AddNoteDialog(
             OutlinedTextField(
                 modifier = Modifier.fillMaxWidth(),
                 label = { Text(text = "title") },
-                value = title,
-                onValueChange = { setTitle(it) },
+                value = noteTitle,
+                onValueChange = onNoteTitleChange,
                 colors = OutlinedTextFieldDefaults.colors(
                     focusedBorderColor = Colors.white,
                     focusedLabelColor = Colors.white,
@@ -73,8 +78,8 @@ fun AddNoteDialog(
             OutlinedTextField(
                 modifier = Modifier.fillMaxWidth(),
                 label = { Text(text = "note") },
-                value = note,
-                onValueChange = { setNote(it) },
+                value = noteDesc,
+                onValueChange = onNoteDescChange,
                 colors = OutlinedTextFieldDefaults.colors(
                     focusedBorderColor = Colors.white,
                     focusedLabelColor = Colors.white,
@@ -86,11 +91,7 @@ fun AddNoteDialog(
             Spacer(modifier = Modifier.height(18.dp))
 
             Button(
-                onClick = {
-                    if (title.isNotEmpty() && note.isNotEmpty()) {
-                        addNoteClick.invoke(title, note)
-                    }
-                },
+                onClick = onButtonClick,
                 shape = RoundedCornerShape(20),
                 modifier = Modifier.fillMaxWidth()
             ) {
